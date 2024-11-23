@@ -1,8 +1,5 @@
-
 <!DOCTYPE html>
-
-<html lang="ar" dir="rtl" data-arp="">
-
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,13 +19,13 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* Prevent scrollbars due to fixed positioning */
+            overflow: hidden;
         }
 
         .container {
             width: 100%;
-            position: relative; /* To contain absolutely positioned children */
-            z-index: 2; /* Ensure container is above the background */
+            position: relative;
+            z-index: 2;
         }
 
         #username {
@@ -45,14 +42,13 @@
         }
 
         #crash-value {
-            font-size: 4em; /* Adjusted for better visibility */
+            font-size: 4em;
             font-weight: normal;
             font-family: 'Sniglet', cursive;
-            z-index: 2; /* Ensure it's above the background */
-            margin-bottom: 20px; /* Add spacing */
+            z-index: 2;
+            margin-bottom: 20px;
         }
 
-        
         #username:hover {
             background-color: #00aaff;
             color: #ffffff;
@@ -62,14 +58,14 @@
 
         .emily {
             background: url(https://64.media.tumblr.com/4e9a5c3131846ea8b73f5517e0dc64f4/00fa41c7690cf579-dc/s400x600/74f538b6a408bae844fd5f466db0081f3f3cd1bf.gifv) no-repeat;
-            background-size: contain; /* Ensure image fits within the container */
+            background-size: contain;
             position: fixed;
-            right: 20px; /* Adjusted for better positioning on mobile */
-            bottom: -20px; /* Adjusted for better positioning on mobile */
-            height: 200px; /* Adjusted size for mobile */
-            width: 150px; /* Adjusted size for mobile */
+            right: 20px;
+            bottom: -20px;
+            height: 200px;
+            width: 150px;
             opacity: 100%;
-            z-index: 1; /* Ensure it's behind the content */
+            z-index: 1;
         }
 
         * {
@@ -78,17 +74,9 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --f-color: #CCC560;
-            --s-color: #CC4C6B;
-            --t-color: #54ADCC;
-            --fr-color: #418056;
-        }
-
-
         p {
             color: white;
-            font-size: 1.5em; /* Adjusted for better readability on mobile */
+            font-size: 1.5em;
             font-family: helvetica, arial, sans-serif;
             font-weight: bolder;
         }
@@ -100,30 +88,8 @@
             animation-name: change-position;
             animation-iteration-count: infinite;
             animation-timing-function: ease-in-out;
-            animation-duration: 10s; /* Adjusted for smoother animation */
+            animation-duration: 10s;
             text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes change-bg {
-            0% {
-                background-color: var(--f-color);
-            }
-
-            25% {
-                background-color: var(--s-color);
-            }
-
-            50% {
-                background-color: var(--t-color);
-            }
-
-            75% {
-                background-color: var(--fr-color);
-            }
-
-            100% {
-                background-color: var(--f-color);
-            }
         }
 
         @keyframes change-position {
@@ -131,30 +97,6 @@
                 transform: translate(0px, 0px);
                 text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
             }
-
-            30% {
-                letter-spacing: 3px; /* Adjusted for mobile */
-            }
-
-            35% {
-                letter-spacing: 0;
-                transform: translate(73vw, 0px) scaleX(1.0);
-            }
-
-            50% {
-                transform: translate(73vw, 83vh);
-                letter-spacing: 0px;
-            }
-
-            35% {
-                letter-spacing: 3px; /* Adjusted for mobile */
-            }
-
-            50% {
-                letter-spacing: 0px;
-                transform: translate(0vw, 83vh);
-            }
-
             100% {
                 transform: translate(0px, 0px);
             }
@@ -162,60 +104,83 @@
     </style>
 </head>
 
-<body style="">
-    <div class="container">
-        <p class="text" id="1">Telegram : GTAxVx</p>
-    </div>
-    <div id="crash-value">0.00</div> 
+<body>
+    <script>
+        // إعداد العناصر الديناميكية
+        document.addEventListener('DOMContentLoaded', function() {
+            // إنشاء الحاوية
+            const container = document.createElement('div');
+            container.className = 'container';
+            document.body.appendChild(container);
 
-  <script>
-    var ws = null;
-    var توقعاتسابقة = []; // Previous predictions
-    var currentIndex = 0; // Index of the prediction to display
+            // إنشاء فقرة Telegram
+            const telegramText = document.createElement('p');
+            telegramText.className = 'text';
+            telegramText.innerText = 'Telegram : GTAxVx';
+            container.appendChild(telegramText);
 
-    function openWebSocket() {
-        var url = 'wss://eg1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=0&appGuid=games-web-master&lng=fr&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC85NzI3MDg3MjUiLCJwaWQiOiIxIiwianRpIjoiMC84MThlNjJlNjQxYmQ4NTYyZmExMzE3NWM2NjhmZDFkM2M5MzBkNjRlMTBmYjU2MmM1MDBmODg4OWNjODQ2ODVmIiwiYXBwIjoiTkEiLCJpbm5lciI6InRydWUiLCJuYmYiOjE3MjUwNTYzOTEsImV4cCI6MTcyNTA3MDc5MSwiaWF0IjoxNzI1MDU2MzkxfQ.CVUoRUHLrRpMUP1opKasqk_vxFMwfnebOdMh1dixfx4RnhLfB2kbhgZrPcgsm2vgLPdec2DzS-yoEMhvZszySg';
-        ws = new WebSocket(url);
-        ws.onopen = function() {
-            console.log('WebSocket opened');
-            // Send initial messages if needed (you might need to adjust these)
-            ws.send('{"protocol":"json","version":1}\x1e');
-            ws.send('{"arguments":[{"activity":30,"account":972708725}],"invocationId":"0","target":"Account","type":1}\x1e');
-        };
-        ws.onclose = function() {
-            console.log('WebSocket closed');
-            ws = null;
-        };
-        ws.onmessage = function(event) {
-            var data = JSON.parse(event.data.slice(0, -1));
-            if (data.target === 'OnCrash') {
-                // Store the crash value in the array
-                توقعاتسابقة.push(data.arguments[0].f);
-                عرضالتوقعالتالي(); // Display the next prediction
+            // إنشاء عنصر لعرض قيمة الانهيار
+            const crashValue = document.createElement('div');
+            crashValue.id = 'crash-value';
+            crashValue.innerText = '0.00';
+            document.body.appendChild(crashValue);
+
+            // إنشاء رابط Telegram
+            const usernameLink = document.createElement('a');
+            usernameLink.id = 'username';
+            usernameLink.target = '_blank';
+            usernameLink.innerText = 'Telegram : @GTAxVx';
+            document.body.appendChild(usernameLink);
+
+            // إنشاء عنصر للصورة المتحركة
+            const emilyDiv = document.createElement('div');
+            emilyDiv.className = 'emily';
+            document.body.appendChild(emilyDiv);
+
+            // فتح اتصال WebSocket
+            var ws = null;
+            var توقعاتسابقة = [];
+            var currentIndex = 0;
+
+            function openWebSocket() {
+                var url = 'wss://eg1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=0&appGuid=games-web-master&lng=fr&access_token=YOUR_ACCESS_TOKEN';
+                ws = new WebSocket(url);
+                
+                ws.onopen = function() {
+                    console.log('WebSocket opened');
+                    ws.send('{"protocol":"json","version":1}\x1e');
+                    ws.send('{"arguments":[{"activity":30,"account":972708725}],"invocationId":"0","target":"Account","type":1}\x1e');
+                };
+
+                ws.onclose = function() {
+                    console.log('WebSocket closed');
+                    ws = null;
+                };
+                
+                ws.onmessage = function(event) {
+                    var data = JSON.parse(event.data.slice(0, -1));
+                    if (data.target === 'OnCrash') {
+                        توقعاتسابقة.push(data.arguments[0].f);
+                        عرضالتوقعالتالي();
+                    }
+                };
+                
+                ws.onerror = function(event) {
+                    console.error('WebSocket error:', event);
+                };
             }
-        };
-        ws.onerror = function(event) {
-            console.error('WebSocket error:', event);
-        };
-    }
 
-    function عرضالتوقعالتالي() { // Function to display the next prediction
-        if (currentIndex < توقعاتسابقة.length) {
-            var crashValueElement = document.getElementById('crash-value');
-            crashValueElement.innerText = توقعاتسابقة[currentIndex];
-            currentIndex++;
-        }
-    }
+            function عرضالتوقعالتالي() {
+                if (currentIndex < توقعاتسابقة.length) {
+                    var crashValueElement = document.getElementById('crash-value');
+                    crashValueElement.innerText = توقعاتسابقة[currentIndex];
+                    currentIndex++;
+                }
+            }
 
-    openWebSocket(); // Open the WebSocket connection
-
-  </script>
-
-    
-    <a id="username" target="_blank">Telegram : @GTAxVx</a>
-    <div class="emily"></div> 
-    <script language=javascript>document.write(unescape('%3Cscript%20src%3D%22js/script.js%22%3E%3C/script%3E%0A'))</script>
-
+            // فتح الاتصال
+            openWebSocket();
+        });
+    </script>
 </body>
-
 </html>
