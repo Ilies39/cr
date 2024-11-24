@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crash</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            color: #ffffff;
+            background: url(https://sadhost.neocities.org/images/tiles/num.gif) repeat center center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        #username {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 2px solid #00aaff;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #crash-value {
+            font-size: 4em;
+            font-weight: normal;
+            font-family: 'Sniglet', cursive;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        #username:hover {
+            background-color: #00aaff;
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .emily {
+            background: url(https://64.media.tumblr.com/4e9a5c3131846ea8b73f5517e0dc64f4/00fa41c7690cf579-dc/s400x600/74f538b6a408bae844fd5f466db0081f3f3cd1bf.gifv) no-repeat;
+            background-size: contain;
+            position: fixed;
+            right: 20px;
+            bottom: -20px;
+            height: 200px;
+            width: 150px;
+            opacity: 100%;
+            z-index: 1;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        p {
+            color: white;
+            font-size: 1.5em;
+            font-family: helvetica, arial, sans-serif;
+            font-weight: bolder;
+        }
+
+        .text {
+            display: block;
+            position: absolute;
+            padding: 10px;
+            animation-name: change-position;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-duration: 10s;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes change-position {
+            50% {
+                transform: translate(0px, 0px);
+                text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+            }
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // إعداد العناصر الديناميكية
+        document.addEventListener('DOMContentLoaded', function() {
+            // إنشاء الحاوية
+            const container = document.createElement('div');
+            container.className = 'container';
+            document.body.appendChild(container);
+
+            // إنشاء فقرة Telegram
+            const telegramText = document.createElement('p');
+            telegramText.className = 'text';
+            telegramText.innerText = 'Telegram : GTAxVx';
+            container.appendChild(telegramText);
+
+            // إنشاء عنصر لعرض قيمة الانهيار
+            const crashValue = document.createElement('div');
+            crashValue.id = 'crash-value';
+            crashValue.innerText = '0.00';
+            document.body.appendChild(crashValue);
+
+            // إنشاء رابط Telegram
+            const usernameLink = document.createElement('a');
+            usernameLink.id = 'username';
+            usernameLink.target = '_blank';
+            usernameLink.innerText = 'Telegram : @GTAxVx';
+            document.body.appendChild(usernameLink);
+
+            // إنشاء عنصر للصورة المتحركة
+            const emilyDiv = document.createElement('div');
+            emilyDiv.className = 'emily';
+            document.body.appendChild(emilyDiv);
+
+            // فتح اتصال WebSocket
+            var ws = null;
+            var توقعاتسابقة = [];
+            var currentIndex = 0;
+
+            function openWebSocket() {
+                var url = 'https://eg1xbet.com/en/allgamesentrance/crash';
+                ws = new WebSocket('wss://eg1xbet.com/games-frame/sockets/crash?whence=55&fcountry=8&ref=1&gr=1557&appGuid=games-web-master&lng=en&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC8xMDY1NDc1MDI3IiwicGlkIjoiMSIsImp0aSI6IjAvYzFiMWQ4YmQzMTA0NjgzMzY1Zjc4NzMwN2MwOTFmNDM5ZDU1MzY4OWUzZmNkNWMxZWE3Yzk5MGEyZDJhMzc1OSIsImFwcCI6Ik5BIiwiaW5uZXIiOiJ0cnVlIiwibmJmIjoxNzMyNDEwNzY2LCJleHAiOjE3MzI0MjUxNjYsImlhdCI6MTczMjQxMDc2Nn0.TlFT3z2PGCsylSzQUN9QJpw7pC0DyiVMfJ4PCt6lDWnWsbi7P2eYeJB3jHeo_q3gFhg-oZnu38G3jkBgmp5X9A');
+                ws.onopen = function() {
+                    console.log('WebSocket opened');
+                    ws.send('{"protocol":"json","version":1}\x1e');
+                    ws.send('{"arguments":[{"activity":30,"account":1065475027}],"invocationId":"0","target":"Account","type":1}\x1e');
+                };
+
+                ws.onclose = function() {
+                    console.log('WebSocket closed');
+                    ws = null;
+                };
+                
+                ws.onmessage = function(event) {
+                    var data = JSON.parse(event.data.slice(0, -1));
+                    if (data.target === 'OnCrash') {
+                        توقعاتسابقة.push(data.arguments[0].f);
+                        عرضالتوقعالتالي();
+                    }
+                };
+                
+                ws.onerror = function(event) {
+                    console.error('WebSocket error:', event);
+                };
+            }
+
+            function عرضالتوقعالتالي() {
+                if (currentIndex < توقعاتسابقة.length) {
+                    var crashValueElement = document.getElementById('crash-value');
+                    crashValueElement.innerText = توقعاتسابقة[currentIndex];
+                    currentIndex++;
+                }
+            }
+
+            // فتح الاتصال
+            openWebSocket();
+        });
+    </script>
+</body>
+</html>
