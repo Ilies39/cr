@@ -1,47 +1,64 @@
-const crashValues = [];
-let currentIndex = 0;
-const crashValueElement = document.getElementById("crashValue");
+javascript
+// إعداد العناصر الديناميكية
+document.addEventListener('DOMContentLoaded', function() {
+    // فتح اتصال WebSocket
+    var ws = null;
+    var توقعاتسابقة = [];
+    var currentIndex = 0;
 
-// اتصال WebSocket
-const webSocketUrl = "wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=ar&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC82OTI5MTkxNTUiLCJwaWQiOiIxIiwianRpIjoiMC9lZTQ4NDAyMDQ2MWE4MzJjYjIwNDE4YmY4MzYwYWRmYmUxNWE5ZGMzOGMxNjU5MzVjZWIxNGMxOTQxNmU0ZDRjIiwiYXBwIjoiTkEiLCJpbm5lciI6InRydWUiLCJuYmYiOjE3MzQzODY4NDAsImV4cCI6MTczNDQwMTI0MCwiaWF0IjoxNzM0Mzg2ODQwfQ.4dAT_0JJwQkBgBOu7P69sRL6LkDJ_2RKeRh1tqYUm-q1PJXs0s4Rj8TvXN4GF6WKa2JHdZKfUZnZKUjEokffzw";
-const socket = new WebSocket(webSocketUrl);
+    function openWebSocket() {
+        ws = new WebSocket('wss://1xbet.com/games-frame/sockets/crash?your_parameters_here');
+        ws.onopen = function() {
+            console.log('WebSocket opened');
+            ws.send('{"protocol":"json","version":1}\x1e');
+            ws.send('{"arguments":[{"activity":30,"account":692919155}],"invocationId":"0","target":"Account","type":1}\x1e');
+        };
 
-socket.onopen = () => {
-    console.log("WebSocket opened");
-    socket.send(JSON.stringify({ "protocol": "json", "version": 1 }));
-    socket.send(JSON.stringify({
-        "arguments": [{ "activity": 30, "account": 692919155 }],
-        "invocationId": "0",
-        "target": "Account",
-        "type": 1
-    }));
-};
+        ws.onclose = function() {
+            console.log('WebSocket closed');
+            ws = null;
+        };
 
-socket.onmessage = (event) => {
-    try {
-        const message = JSON.parse(event.data);
-        if (message.target === "OnCrash") {
-            const crashValue = message.arguments[0].f;
-            crashValues.push(crashValue);
+        ws.onmessage = function(event) {
+            var data = JSON.parse(event.data.slice(0, -1));
+            if (data.target === 'OnCrash') {
+                توقعاتسابقة.push(data.arguments[0].f);
+                console.log('Received value:', data.arguments[0].f); // عرض القيمة المستلمة
+                عرضالتوقعالتالي();
+            }
+        };
+
+        ws.onerror = function(event) {
+            console.error('WebSocket error:', event);
+        };
+    }
+
+    function توقعالقيمةالمستقبلية() {
+        if (توقعاتسابقة.length < 3) return توقعاتسابقة[currentIndex - 1] || 0; // إذا لم يكن هناك بيانات كافية
+        const lastValue = توقعاتسابقة[currentIndex - 1];
+        const secondLastValue = توقعاتسابقة[currentIndex - 2];
+        
+        // خوارزمية لتقدير القيمة القادمة
+        const predictedValue = (lastValue + secondLastValue) / 2; // يمكنك تعديل الخوارزمية هنا
+        console.log('Predicted next value:', predictedValue); // عرض القيمة المتوقعة
+        return predictedValue;
+    }
+
+    function عرضالتوقعالتالي() {
+        if (currentIndex < توقعاتسابقة.length) {
+            var crashValueElement = document.getElementById('crash-value');
+            crashValueElement.innerText = توقعاتسابقة[currentIndex];
+
+            // توقع القيمة المستقبلية (القيمة التي ستأتي بعد القيم الحالية)
+            var predictedValue = توقعالقيمةالمستقبلية();
+            var predictedValueElement = document.getElementById('predicted-value');
+            predictedValueElement.innerText = `التوقع بعد القادم: ${predictedValue}`;
+
+            currentIndex++;
+            console.log('Current index:', currentIndex); // عرض الفهرس الحالي
         }
-    } catch (error) {
-        console.error("Error parsing message:", error);
     }
-};
 
-socket.onclose = (event) => {
-    console.log("WebSocket closed:", event.reason);
-};
-
-socket.onerror = (error) => {
-    console.error("WebSocket error:", error);
-};
-
-// تحديث القيمة المعروضة كل ثانية
-setInterval(() => {
-    if (currentIndex < crashValues.length) {
-        const value = crashValues[currentIndex];
-        crashValueElement.textContent = value.toFixed(2);
-        currentIndex++;
-    }
-}, 1000);
+    // فتح الاتصال
+    openWebSocket();
+});
