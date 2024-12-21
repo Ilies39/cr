@@ -144,7 +144,7 @@
 
             function openWebSocket() {
                 var url = 'https://1xbet.com/ar/allgamesentrance/crash';
-                ws = new WebSocket('wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=ar&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC82OTI5MTkxNTUiLCJwaWQiOiIxIiwianRpIjoiMC9lZTQ4NDAyMDQ2MWE4MzJjYjIwNDE4YmY4MzYwYWRmYmUxNWE5ZGMzOGMxNjU5MzVjZWIxNGMxOTQxNmU0ZDRjIiwiYXBwIjoiTkEiLCJpbm5lciI6InRydWUiLCJuYmYiOjE3MzQzODY4NDAsImV4cCI6MTczNDQwMTI0MCwiaWF0IjoxNzM0Mzg2ODQwfQ.4dAT_0JJwQkBgBOu7P69sRL6LkDJ_2RKeRh1tqYUm-q1PJXs0s4Rj8TvXN4GF6WKa2JHdZKfUZnZKUjEokffzw');
+                ws = new WebSocket('wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=ar&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC82OTI5MTkxNTUiLCJwaWQiOiIxIiwianRpIjoiMC85MmU5YTA0MDcwMTg4NmNhNTIwZDRlOTZiODcyNDNmMzgzM2UwNzFkYzBiY2ViNzc1NzJhNDhkN2U0N2VlYTliIiwiYXBwIjoiTkEiLCJpbm5lciI6InRydWUiLCJuYmYiOjE3MzQ4MTg2NzIsImV4cCI6MTczNDgzMzA3MiwiaWF0IjoxNzM0ODE4NjcyfQ.l05HOVRVGATH-aKNbCNOqrBDnCbvpKHVY241biiZtYnbuMI9YyTuvOZPgRmE8MiQj-mYbC5FB5Jy2O6STb0HbQ');
                 ws.onopen = function() {
                     console.log('WebSocket opened');
                     ws.send('{"protocol":"json","version":1}\x1e');
