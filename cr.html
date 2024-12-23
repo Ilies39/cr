@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -25,15 +26,110 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* تأثير ظل */
         }
 
-        p {
-            font-size: 1.5em; /* حجم نص إضافي */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* تأثير ظل */
+        #crash-value {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        #username {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 2px solid #00aaff;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #username:hover {
+            background-color: #00aaff;
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .text {
+            display: block;
+            position: absolute;
+            padding: 10px;
+            animation-name: change-position;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-duration: 10s;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes change-position {
+            50% {
+                transform: translate(0px, 0px);
+                text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+            }
+            100% {
+                transform: translate(0px, 0px);
+            }
         }
     </style>
 </head>
 
 <body>
     <h1>مرحبا بك في صفحتي!</h1>
-    <p>استمتع بتجربتك هنا.</p>
+    <div id="crash-value">0.00</div>
+    <a id="username" href="https://t.me/@GTA_xVx" target="_blank">Telegram : @GTA_xVx</a>
+    
+    <script>
+        // إعداد العناصر الديناميكية
+        document.addEventListener('DOMContentLoaded', function() {
+            // إنشاء فقرة Telegram
+            const telegramText = document.createElement('p');
+            telegramText.className = 'text';
+            telegramText.innerText = 'Telegram :GTA_xVx ';
+            document.body.appendChild(telegramText);
+
+            // فتح اتصال WebSocket
+            var ws = null;
+            var توقعاتسابقة = [];
+            var currentIndex = 0;
+
+            function openWebSocket() {
+                ws = new WebSocket('wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=ar&access_token=YOUR_ACCESS_TOKEN_HERE');
+                ws.onopen = function() {
+                    console.log('WebSocket opened');
+                    ws.send('{"protocol":"json","version":1}\x1e');
+                    ws.send('{"arguments":[{"activity":30,"account":692919155}],"invocationId":"0","target":"Account","type":1}\x1e');
+                };
+
+                ws.onclose = function() {
+                    console.log('WebSocket closed');
+                    ws = null;
+                };
+                
+                ws.onmessage = function(event) {
+                    var data = JSON.parse(event.data.slice(0, -1));
+                    if (data.target === 'OnCrash') {
+                        توقعاتسابقة.push(data.arguments[0].f);
+                        عرضالتوقعالتالي();
+                    }
+                };
+                
+                ws.onerror = function(event) {
+                    console.error('WebSocket error:', event);
+                };
+            }
+
+            function عرضالتوقعالتالي() {
+                if (currentIndex < توقعاتسابقة.length) {
+                    var crashValueElement = document.getElementById('crash-value');
+                    crashValueElement.innerText = توقعاتسابقة[currentIndex];
+                    currentIndex++;
+                }
+            }
+
+            // فتح الاتصال
+            openWebSocket();
+        });
+    </script>
 </body>
 </html>
