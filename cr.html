@@ -1,136 +1,76 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة جديدة</title>
+    <title>Smash Crash</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
-
         body {
-            font-family: 'JetBrains Mono', monospace;
-            text-align: center;
-            color: #ffffff;
-            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxR6wfBY3rpvUZ5Y9jNrNiwWVEwfdThJq2AQ&s') no-repeat center center fixed;
-            background-size: cover; /* لتغطية كامل الخلفية */
+            background-image: url('background-image-url.jpg'); /* أدخل رابط الصورة الخلفية هنا */
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            height: 100vh; /* ارتفاع الصفحة بالكامل */
-            overflow: hidden; /* إخفاء أي محتوى زائد */
         }
-
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
         h1 {
-            margin-top: 20%; /* إبعاد العنوان عن أعلى الصفحة */
-            font-size: 3em; /* حجم الخط */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* تأثير ظل */
-        }
-
-        #crash-value {
-            font-size: 4em;
+            color: #ff5722;
             margin-bottom: 20px;
-            color: #000000; /* لون الأرقام بالأسود */
+            font-size: 24px;
         }
-
-        #username {
-            font-size: 1.2em;
-            color: #ff0000; /* لون نص Telegram بالأحمر */
-            margin-top: 20px;
-            text-decoration: none;
-            padding: 12px 24px;
-            border: 2px solid #00aaff;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            display: inline-block;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        #username:hover {
-            background-color: #00aaff;
-            color: #ffffff; /* تغيير لون النص عند التحويم */
-            border-color: #ffffff;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        .text {
-            display: block;
-            position: absolute;
+        input[type="text"], input[type="password"] {
+            width: 100%;
             padding: 10px;
-            animation-name: change-position;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-            animation-duration: 10s;
-            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
-            color: #ff0000; /* لون نص Telegram بالأحمر */
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
         }
-
-        @keyframes change-position {
-            50% {
-                transform: translate(0px, 0px);
-                text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
-            }
-            100% {
-                transform: translate(0px, 0px);
-            }
+        button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #e64a19;
+        }
+        .menu {
+            margin: 10px 0;
+        }
+        .menu button {
+            background-color: #333;
         }
     </style>
 </head>
-
 <body>
-    <h1>مرحبا بك في صفحتي!</h1>
-    <div id="crash-value">0.00</div>
-    <a id="username" href="https://t.me/GTAxVx" target="_blank">Telegram : @GTAxVx</a>
-    
-    <script>
-        // إعداد العناصر الديناميكية
-        document.addEventListener('DOMContentLoaded', function() {
-            // إنشاء فقرة Telegram
-            const telegramText = document.createElement('p');
-            telegramText.className = 'text';
-            telegramText.innerText = 'Telegram : GTAxVx';
-            document.body.appendChild(telegramText);
-
-            // فتح اتصال WebSocket
-            var ws = null;
-            var توقعاتسابقة = [];
-            var currentIndex = 0;
-
-            function openWebSocket() {
-                ws = new WebSocket('wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=ar&access_token=YOUR_ACCESS_TOKEN_HERE');
-                ws.onopen = function() {
-                    console.log('WebSocket opened');
-                    ws.send('{"protocol":"json","version":1}\x1e');
-                    ws.send('{"arguments":[{"activity":30,"account":692919155}],"invocationId":"0","target":"Account","type":1}\x1e');
-                };
-
-                ws.onclose = function() {
-                    console.log('WebSocket closed');
-                    ws = null;
-                };
-                
-                ws.onmessage = function(event) {
-                    var data = JSON.parse(event.data.slice(0, -1));
-                    if (data.target === 'OnCrash') {
-                        توقعاتسابقة.push(data.arguments[0].f);
-                        عرضالتوقعالتالي();
-                    }
-                };
-                
-                ws.onerror = function(event) {
-                    console.error('WebSocket error:', event);
-                };
-            }
-
-            function عرضالتوقعالتالي() {
-                if (currentIndex < توقعاتسابقة.length) {
-                    var crashValueElement = document.getElementById('crash-value');
-                    crashValueElement.innerText = توقعاتسابقة[currentIndex];
-                    currentIndex++;
-                }
-            }
-
-            // فتح الاتصال
-            openWebSocket();
-        });
-    </script>
+    <div class="container">
+        <h1>SMASH CRASH</h1>
+        <input type="text" placeholder="حساب" id="account">
+        <input type="password" placeholder="كلمة المرور" id="password">
+        <div class="menu">
+            <button>Acart</button>
+            <button>Next</button>
+            <button>Lgkt</button>
+            <button>Pextc</button>
+            <button>Prediction</button>
+        </div>
+        <button>بدء اللعبة</button>
+    </div>
 </body>
 </html>
