@@ -1,76 +1,97 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smash Crash</title>
-    <style>
-        body {
-            background-image: url('background-image-url.jpg'); /* أدخل رابط الصورة الخلفية هنا */
-            background-size: cover;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: rgba(0, 0, 0, 0.8);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            width: 300px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-        h1 {
-            color: #ff5722;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background-color: #444;
-            color: white;
-        }
-        button {
-            background-color: #ff5722;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #e64a19;
-        }
-        .menu {
-            margin: 10px 0;
-        }
-        .menu button {
-            background-color: #333;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smash Crash</title>
+    <style>
+        body {
+            background-image: url('background-image-url.jpg'); /* أدخل رابط الصورة الخلفية هنا */
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #ff5722;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
+        }
+        button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #e64a19;
+        }
+        .menu {
+            margin: 10px 0;
+        }
+        .menu button {
+            background-color: #333;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>SMASH CRASH</h1>
-        <input type="text" placeholder="حساب" id="account">
-        <input type="password" placeholder="كلمة المرور" id="password">
-        <div class="menu">
-            <button>Acart</button>
-            <button>Next</button>
-            <button>Lgkt</button>
-            <button>Pextc</button>
-            <button>Prediction</button>
-        </div>
-        <button>بدء اللعبة</button>
-    </div>
+    <div class="container">
+        <h1>SMASH CRASH</h1>
+        <input type="text" placeholder="حساب" id="account">
+        <input type="password" placeholder="كلمة المرور" id="password">
+        <div class="menu">
+            <button>Acart</button>
+            <button>Next</button>
+            <button>Lgkt</button>
+            <button>Pextc</button>
+            <button>Prediction</button>
+        </div>
+        <button id="startGameButton">بدء اللعبة</button>
+    </div>
+
+    <script>
+        // سكربت لجعل اللعبة تفاعلية
+
+        // وظيفة لبدء اللعبة
+        function startGame() {
+            const account = document.getElementById('account').value;
+            const password = document.getElementById('password').value;
+
+            // تحقق من وجود حساب وكلمة مرور
+            if (account && password) {
+                alert(`مرحبًا بك في SMASH CRASH، ${account}!`);
+                // هنا يمكنك إضافة الكود لبدء اللعبة
+            } else {
+                alert('يرجى إدخال حساب وكلمة مرور صحيحة.');
+            }
+        }
+
+        // إضافة حدث للزر "بدء اللعبة"
+        document.getElementById('startGameButton').addEventListener('click', startGame);
+    </script>
 </body>
 </html>
